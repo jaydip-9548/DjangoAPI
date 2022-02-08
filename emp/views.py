@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+# Create your views here.
+from django.shortcuts import render
+
 from .models import DepartmentData,EmployeeData
 from .serializers import DepartmentDataSerializer,EmployeeDataSerializer
 from rest_framework.renderers import JSONRenderer

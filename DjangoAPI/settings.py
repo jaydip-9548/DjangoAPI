@@ -1,14 +1,13 @@
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-s&g947npknm($vbfty3#!vg9ry3$ykb=k5z6!fne0su9xid_fw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -22,14 +21,13 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'corsheaders',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'EmployeeApp.apps.EmployeeappConfig',
-    'rest_framework'
-    
+    'rest_framework',
+    'emp',
+    'corsheaders',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -51,7 +49,9 @@ ROOT_URLCONF = 'DjangoAPI.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR,'my-app/build')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,9 +71,16 @@ WSGI_APPLICATION = 'DjangoAPI.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'telusko',
+        'USER':'postgres',
+        'PASSWORD':'1234',
+        'HOST':'localhost',
     }
 }
 
@@ -118,3 +125,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'my-app/build/static')
+]
